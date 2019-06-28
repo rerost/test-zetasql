@@ -1,4 +1,4 @@
-FROM gcr.io/cloud-marketplace/google/bazel:0.25.0
+FROM gcr.io/cloud-marketplace/google/bazel:0.25.0 as bazel
 
 RUN apt-get update && \
   apt-get install -y \
@@ -14,8 +14,9 @@ RUN apt-get update && \
   curl \
   git
 
-RUN git clone https://github.com/google/zetasql.git zetasql
+RUN mkdir /app
+RUN git clone https://github.com/google/zetasql.git /app
 
-WORKDIR ./zetasql
-RUN bazel build zetasql/... --sandbox_debug
+WORKDIR /app
+RUN bazel build ...
 
