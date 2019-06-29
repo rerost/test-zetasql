@@ -14,9 +14,7 @@ RUN apt-get update && \
   curl \
   git
 
-RUN mkdir /app
-RUN git clone https://github.com/google/zetasql.git /app
-
 WORKDIR /app
-RUN bazel build ...
-
+COPY . .
+RUN bazel build //:test-zetasql
+ENTRYPOINT []
